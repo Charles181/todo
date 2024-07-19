@@ -31,9 +31,9 @@
                     <div class="card-body">
                         {{ task.task }}
                         <span style="position: relative; float: right;">
-                            <a href="" class="btn btn-success"><i class="fa fa-check"></i> Marcar completada</a>
-                            <a href="" class="btn btn-danger"><i class="fa fa-trash"></i></a>
-                            <a href="" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
+                            <a href="{% url 'mark_as_done' task.pk %}" class="btn btn-success"><i class="fa fa-check"></i> Marcar completada</a>
+                            <a href="{% url 'delete_task' task.pk %}" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                            <a href="{% url 'edit_task' task.pk %}" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
                         </span>
                     </div>
                 </div>
@@ -44,10 +44,10 @@
                 <!-- List of all the tasks that have completed -->
                 {% for task in completed_tasks %}
                 <div class="card m-1">
-                    <div class="card-body">
+                    <div class="card-body text-muted">
                         {{ task.task }}
                         <span style="position: relative; float: right;">
-                            <a href="{% url 'mark_as_undone' task.pk %}" class="btn btn-danger"><i class="fa fa-times"></i> Mark as Undone</a>
+                            <a href="{% url 'mark_as_undone' task.pk %}" onclick="window.alert('Tarea marcada como incompleta')" class="btn btn-warning"><i class="fa fa-times"></i> Marcar incompleta</a>
                         </span>
                     </div>
                 </div>
@@ -57,7 +57,7 @@
         <div class="row">
             <div class="col-md-6 col-lg-6 p-0" style="position: absolute; bottom: auto;">
                 <!-- To Do Form -->
-                <form action="{% url 'addTask' %}" method="POST"><!--Removed addTask action (), it was causing an error   -->
+                <form action="{% url 'addTask' %}" method="POST">
                     {% csrf_token %}
                     <div class="form-group">
                         <span style="display: flex;">
